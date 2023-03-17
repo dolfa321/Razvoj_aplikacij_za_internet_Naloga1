@@ -11,7 +11,7 @@ function username_exists($username){
 }
 
 // Funkcija ustvari uporabnika v tabeli users. Poskrbi tudi za ustrezno šifriranje uporabniškega gesla.
-function register_user($username, $password){
+function register_user($username, $password, $firstname, $lastname, $post, $phone, $gender, $age){
 	global $conn;
 	$username = mysqli_real_escape_string($conn, $username);
 	$pass = sha1($password);
@@ -21,7 +21,7 @@ function register_user($username, $password){
 		http://php.net/manual/en/faq.passwords.php#faq.passwords 
 		https://crackstation.net/hashing-security.htm
 	*/
-	$query = "INSERT INTO users (username, password) VALUES ('$username', '$pass');";
+	$query = "INSERT INTO users (username, password, firstname, lastname, post, telephone, gender, age) VALUES ('$username', '$pass', '$firstname', '$lastname', '$post', '$phone','$gender','$age');";
 	if($conn->query($query)){
 		return true;
 	}
@@ -48,7 +48,8 @@ if(isset($_POST["submit"])){
 		$error = "Uporabniško ime je že zasedeno.";
 	}
 	//Podatki so pravilno izpolnjeni, registriraj uporabnika
-	else if(register_user($_POST["username"], $_POST["password"])){
+	else if(register_user($_POST["username"], $_POST["password"],
+	$_POST["firstname"], $_POST["lastname"], $_POST["post"], $_POST["phone"],$_POST["gender"], $_POST["age"])){
 		header("Location: login.php");
 		die();
 	}
@@ -61,9 +62,17 @@ if(isset($_POST["submit"])){
 ?>
 	<h2>Registracija</h2>
 	<form action="register.php" method="POST">
-		<label>Uporabniško ime</label><input type="text" name="username" /> <br/>
-		<label>Geslo</label><input type="password" name="password" /> <br/>
-		<label>Ponovi geslo</label><input type="password" name="repeat_password" /> <br/>
+		<label>Uporabniško ime: </label><input type="text" name="username" /> <br/>
+		<label>Geslo: </label><input type="password" name="password" /> <br/>
+		<label>Ponovi geslo: </label><input type="password" name="repeat_password" /> <br/>	
+		<label>Ime: </label><input type="text" name="firstname" /><br/>
+		<label>Priimek: </label><input type="text" name="lastname" /><br/>
+		<lable>Pošta: </label><input type="number" name="post"/><br/>
+		<label>Telefonska številka: </label> <input type="tel" name="phone"/> <br/>
+		<lable>Spol: </label></br>
+		<label>Moški</label><input type="radio" name="gender" id="male" value="m"/>
+		<label>Ženska</label><input type="radio" name="gender" id="femal" value="m"> <br/>
+		<label>Starost: </label><input type="number" name="age"/><br/>
 		<input type="submit" name="submit" value="Pošlji" /> <br/>
 		<label><?php echo $error; ?></label>
 	</form>
