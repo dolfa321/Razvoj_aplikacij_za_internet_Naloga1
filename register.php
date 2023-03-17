@@ -8,7 +8,7 @@ function username_exists($username){
 	$query = "SELECT * FROM users WHERE username='$username'";
 	$res = $conn->query($query);
 	return mysqli_num_rows($res) > 0;
-	//Testiranje 
+	//Testiranje adasdaddasd
 }
 
 // Funkcija ustvari uporabnika v tabeli users. Poskrbi tudi za ustrezno šifriranje uporabniškega gesla.
