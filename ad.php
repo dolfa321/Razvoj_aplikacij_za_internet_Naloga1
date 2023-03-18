@@ -12,7 +12,19 @@ function get_ad($id){
 	}
 	return null;
 }
-
+function add_view($ad_id)
+{
+    global $conn;
+    $query = "SELECT ogledi FROM ads WHERE id='$ad_id'";
+    $result = $conn->query($query);
+    $row = mysqli_fetch_all($result, MYSQLI_NUM);
+    $views_num = $row[0][0];
+    $query = "UPDATE ads SET ads.ogledi = $views_num+1 WHERE id=$ad_id;";
+    if (!$conn->query($query)) {
+        return false;
+    }
+    return true;
+}
 if(!isset($_GET["id"])){
 	echo "Manjkajoči parametri.";
 	die();
@@ -23,6 +35,8 @@ if($ad == null){
 	echo "Oglas ne obstaja.";
 	die();
 }
+
+add_view($id)
 //Base64 koda za sliko (hexadecimalni zapis byte-ov iz datoteke)
 
 ?>
@@ -30,7 +44,7 @@ if($ad == null){
 		<h4><?php echo $ad->title;?></h4>
 		<p><?php echo $ad->description;?></p>
 		<img src="<?php echo $ad->image;?>"/>
-		<p>Objavil: <?php echo $ad->username; ?></p>
+		<p>Objavil: <?php echo $ad->username; ?> Ogledi: <?php echo $ad->ogledi?></p>
 		<a href="index.php"><button>Nazaj</button></a>
 	</div>
 	<hr/>

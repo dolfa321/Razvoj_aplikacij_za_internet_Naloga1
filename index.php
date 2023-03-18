@@ -2,7 +2,7 @@
 include_once('header.php');
 
 // Funkcija prebere oglase iz baze in vrne polje objektov
-function get_ads(){
+function get_adS(){
 	global $conn;
 	$query = "SELECT * FROM ads ORDER BY date DESC;";
 	$res = $conn->query($query);
@@ -35,7 +35,7 @@ foreach($ads as $ad){
 	<div class="ad">
 		<h4><?php echo $ad->title;?></h4>
 		
-		<img src="<?php echo $ad->image;?>" />
+		<img src="<?php echo $ad->image;?>"/>
 		<p><?php echo $ad->description;?></p>
 		<a href="ad.php?id=<?php echo $ad->id;?>"><button>Preberi več</button></a>
 	</div>

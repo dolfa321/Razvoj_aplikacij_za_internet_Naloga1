@@ -11,6 +11,8 @@
 	$conn = new mysqli('localhost', 'root', '', 'vaja1');
 	//Nastavi kodiranje znakov, ki se uporablja pri komunikaciji z bazo
 	$conn->set_charset("UTF8");
+
+	
 ?>
 <html>
 <head>
@@ -26,7 +28,7 @@
 				?>
 				<li><a href="publish.php">Objavi oglas</a></li>
 				<li><a href="logout.php">Odjava</a></li>
-				<li><a href="ad.php">Moji Oglasi</a></li>
+				<li><a href="myad.php">Moji Oglasi</a></li>
 				<?php
 			} else{
 				?>
