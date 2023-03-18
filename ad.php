@@ -24,12 +24,12 @@ if($ad == null){
 	die();
 }
 //Base64 koda za sliko (hexadecimalni zapis byte-ov iz datoteke)
-$img_data = base64_encode($ad->image);
+
 ?>
 	<div class="ad">
 		<h4><?php echo $ad->title;?></h4>
 		<p><?php echo $ad->description;?></p>
-		<img src="data:image/jpg;base64, <?php echo $img_data;?>" width="400"/>
+		<img src="<?php echo $ad->image;?>"/>
 		<p>Objavil: <?php echo $ad->username; ?></p>
 		<a href="index.php"><button>Nazaj</button></a>
 	</div>

@@ -27,7 +27,7 @@ function publish($title, $categories, $desc, $img)
     //Paziti moramo tudi na varnost: v mapi slik se ne smejo izvajati nobene scripte (če bi uporabnik naložil PHP kodo). Potrebno je urediti ustrezna dovoljenja (permissions).
     // ********** Narejeno *************
     */
-    $imagePath = 'C:\laragon\www\N1\slike\ ';
+    $imagePath = 'C:/laragon/www/N1/slike\ ';
     $uniquesavename = time() . uniqid(rand());
     $destFile = $imagePath . $uniquesavename . '.jpg';
     $filename = $img["tmp_name"];
@@ -35,7 +35,7 @@ function publish($title, $categories, $desc, $img)
     move_uploaded_file($filename, $destFile);
 
 
-    $pot = "slike/" . $uniquesavename . '.jpg';
+    $pot = "slike/ " . $uniquesavename . '.jpg';
     //echo "Pot slika1: $pot ";
     //echo "$destFile";
     //V bazo shranimo $pot
