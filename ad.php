@@ -5,7 +5,7 @@ include_once('header.php');
 function get_ad($id){
 	global $conn;
 	$id = mysqli_real_escape_string($conn, $id);
-	$query = "SELECT ads.*, users.username FROM ads LEFT JOIN users ON users.id = ads.user_id WHERE ads.id = $id;";
+	$query = "SELECT ads.*, users.username , users.post , users.telephone FROM ads LEFT JOIN users ON users.id = ads.user_id WHERE ads.id = $id;";
 	$res = $conn->query($query);
 	if($obj = $res->fetch_object()){
 		return $obj;
@@ -14,7 +14,10 @@ function get_ad($id){
 }
 function add_view($ad_id)
 {
-    global $conn;
+
+	$cookie_name = "ad_$ad_id";
+    if (!isset($_COOKIE[$cookie_name])) {
+	global $conn;
     $query = "SELECT ogledi FROM ads WHERE id='$ad_id'";
     $result = $conn->query($query);
     $row = mysqli_fetch_all($result, MYSQLI_NUM);
@@ -23,7 +26,10 @@ function add_view($ad_id)
     if (!$conn->query($query)) {
         return false;
     }
+	setcookie($cookie_name, 1, time() + 86400);
     return true;
+	}
+	return false;
 }
 if(!isset($_GET["id"])){
 	echo "Manjkajoči parametri.";
@@ -43,6 +49,8 @@ add_view($id)
 	<div class="ad">
 		<h4><?php echo $ad->title;?></h4>
 		<p><?php echo $ad->description;?></p>
+		<p>Poštna številka: <?php echo $ad->post;?></p>
+		<p>Telefonska: <?php echo $ad->telephone;?></p>
 		<img src="<?php echo $ad->image;?>"/>
 		<p>Objavil: <?php echo $ad->username; ?> Ogledi: <?php echo $ad->ogledi?></p>
 		<a href="index.php"><button>Nazaj</button></a>

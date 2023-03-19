@@ -12,7 +12,7 @@
 	//Nastavi kodiranje znakov, ki se uporablja pri komunikaciji z bazo
 	$conn->set_charset("UTF8");
 
-	
+		
 ?>
 <html>
 <head>
