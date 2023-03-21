@@ -46,16 +46,20 @@ add_view($id)
 //Base64 koda za sliko (hexadecimalni zapis byte-ov iz datoteke)
 
 ?>
-	<div class="ad">
-		<h4><?php echo $ad->title;?></h4>
-		<p><?php echo $ad->description;?></p>
-		<p>Poštna številka: <?php echo $ad->post;?></p>
-		<p>Telefonska: <?php echo $ad->telephone;?></p>
-		<img src="<?php echo $ad->image;?>"/>
-		<p>Objavil: <?php echo $ad->username; ?> Ogledi: <?php echo $ad->ogledi?></p>
-		<a href="index.php"><button>Nazaj</button></a>
-	</div>
-	<hr/>
+<div class="container">
+  <div class="card mx-auto" style="width: 60rem;">
+    <div class="card-body">
+      <h4 class="card-title"><?php echo $ad->title;?></h4>
+      <p class="card-text"><?php echo $ad->description;?></p>
+      <p class="card-text"><strong>Poštna številka:</strong> <?php echo $ad->post;?></p>
+      <p class="card-text"><strong>Telefonska:</strong> <?php echo $ad->telephone;?></p>
+      <img src="<?php echo $ad->image;?>" class="card-img-top" alt="Ad Image">
+      <p class="card-text"><small class="text-muted">Objavil: <?php echo $ad->username; ?> | Ogledi: <?php echo $ad->ogledi?></small></p>
+      <a href="index.php" class="btn btn-primary">Nazaj</a>
+    </div>
+  </div>
+</div>
+
 	<?php
 
 include_once('footer.php');

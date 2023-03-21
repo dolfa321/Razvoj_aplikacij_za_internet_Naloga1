@@ -61,22 +61,65 @@ if(isset($_POST["submit"])){
 }
 
 ?>
-	<h2>Registracija</h2>
-	<form action="register.php" method="POST">
-		<label>Uporabniško ime: </label><input type="text" name="username" /> <br/>
-		<label>Geslo: </label><input type="password" name="password" /> <br/>
-		<label>Ponovi geslo: </label><input type="password" name="repeat_password" /> <br/>	
-		<label>Ime: </label><input type="text" name="firstname" /><br/>
-		<label>Priimek: </label><input type="text" name="lastname" /><br/>
-		<lable>Pošta: </label><input type="number" name="post"/><br/>
-		<label>Telefonska številka: </label> <input type="tel" name="phone"/> <br/>
-		<lable>Spol: </label></br>
-		<label>Moški</label><input type="radio" name="gender" id="male" value="m"/>
-		<label>Ženska</label><input type="radio" name="gender" id="femal" value="m"> <br/>
-		<label>Starost: </label><input type="number" name="age"/><br/>
-		<input type="submit" name="submit" value="Pošlji" /> <br/>
-		<label><?php echo $error; ?></label>
-	</form>
+	<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<h2 class="text-center">Registracija</h2>
+			<form action="register.php" method="POST">
+				<div class="form-group">
+					<label for="username">Uporabniško ime:</label>
+					<input type="text" name="username" id="username" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="password">Geslo:</label>
+					<input type="password" name="password" id="password" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="repeat_password">Ponovi geslo:</label>
+					<input type="password" name="repeat_password" id="repeat_password" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="firstname">Ime:</label>
+					<input type="text" name="firstname" id="firstname" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="lastname">Priimek:</label>
+					<input type="text" name="lastname" id="lastname" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="post">Pošta:</label>
+					<input type="number" name="post" id="post" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="phone">Telefonska številka:</label>
+					<input type="tel" name="phone" id="phone" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label>Spol:</label><br>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="gender" id="male" value="m" class="form-check-input">
+						<label for="male" class="form-check-label">Moški</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="gender" id="female" value="f" class="form-check-input">
+						<label for="female" class="form-check-label">Ženska</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="age">Starost:</label>
+					<input type="number" name="age" id="age" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<input type="submit" name="submit" value="Pošlji" class="btn btn-primary">
+				</div>
+				<div class="form-group">
+					<label><?php echo $error; ?></label>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <?php
 include_once('footer.php');
 ?>

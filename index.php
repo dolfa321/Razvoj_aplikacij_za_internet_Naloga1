@@ -32,19 +32,23 @@ $categories = get_categories();
 //Doda link z GET parametrom id na oglasi.php za gumb 'Preberi več'
 foreach($ads as $ad){
 	?>
-	<div class="ad">
-		<h4><?php echo $ad->title;?></h4>
-		
-		<img src="<?php echo $ad->image;?>"/>
-		<p><?php echo $ad->description;?></p>
-		<a href="ad.php?id=<?php echo $ad->id;?>"><button>Preberi več</button></a>
-	</div>
-	<hr/>
+	<div class="container">
+  <div class="row">
+    <div class="col-sm-6 mx-auto">
+	<div class="card">
+    <img class="card-img-fluid" style="max-width: 600px;"  src="<?php echo $ad->image;?>" alt="Ad Image">
+    <div class="card-body">
+        <h5 class="card-title"><?php echo $ad->title;?></h5>
+        <p class="card-text"><?php echo $ad->description;?></p>
+        <a href="ad.php?id=<?php echo $ad->id;?>" class="btn btn-primary">Preberi več</a>
+    </div>
+</div>
+</div>
+  </div>
+</div>
+<hr/>
+
 	<?php
 }
-
-//>> git commit -m "first commit"
-//>> git branch -M main
-// git push -u origin main
 include_once('footer.php');
 ?>

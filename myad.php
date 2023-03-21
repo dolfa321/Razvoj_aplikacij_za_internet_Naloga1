@@ -38,44 +38,58 @@ if (isset($_POST["delete"])) {
 }
 $ads = get_advertisement($_SESSION["USER_ID"]);
 
-if (isset($_POST['id'], $_POST['title'], $_POST['description'], $_POST['image'])) {
+if (isset($_POST['id'], $_POST['title'], $_POST['description'])) {
     $id = mysqli_real_escape_string($conn, $_POST['id']);
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $image = mysqli_real_escape_string($conn, $_POST['image']);
-    $query = "UPDATE ads SET title='$title', description='$description', image='$image' WHERE id='$id';";
+
+    if(isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK){
+        $tmp_name = $_FILES["image"]["tmp_name"];
+        $savename = uniqid();
+        $image_path = "slike/" . $savename . ".jpg";
+        move_uploaded_file($tmp_name, $image_path);
+        $query = "UPDATE ads SET title='$title', description='$description', image='$image_path' WHERE id='$id';";
+    } else {
+        $query = "UPDATE ads SET title='$title', description='$description' WHERE id='$id';";
+    }
+
     $conn->query($query);
     header("Refresh:0");
-
 }
+
 
 foreach($ads as $ad){
 	?>
-	<div class="ad">
-		<h4><?php echo $ad->title;?></h4>
-		<p><?php echo $ad->description;?></p>
-		<img src="<?php echo $ad->image;?>"/>
-		<p>Ogledi: <?php echo $ad->ogledi?></p>
+<div class="card mx-auto" style="width: 60rem;">
+    <img src="<?php echo $ad->image;?>" class="card-img-top" alt="Ad Image">
+    <div class="card-body">
+        <h5 class="card-title"><?php echo $ad->title;?></h5>
+        <p class="card-text"><?php echo $ad->description;?></p>
+        <p class="card-text">Ogledi: <?php echo $ad->ogledi?></p>
         <form method="post">
-    <input type="hidden" name="ad_id" value="<?php echo $ad->id; ?>">
-    <button type="submit" name="delete">Briši</button>
-</form>
+            <input type="hidden" name="ad_id" value="<?php echo $ad->id; ?>">
+            <button type="submit" name="delete" class="btn btn-danger">Briši</button>
+        </form>
+        <form method="post">
+            <input type="hidden" name="id" value="<?php echo $ad->id; ?>">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" value="<?php echo $ad->title; ?>" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" class="form-control"><?php echo $ad->description; ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" name="image" id="image"><br>
 
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
 
-
-<form method="post">
-    <input type="hidden" name="id" value="<?php echo $ad->id; ?>">
-    <label for="title">Title:</label>
-    <input type="text" name="title" id="title" value="<?php echo $ad->title; ?>"><br>
-    <label for="description">Description:</label>
-    <textarea name="description" id="description"><?php echo $ad->description; ?></textarea><br>
-    <label for="image">Image:</label>
-    <input type="text" name="image" id="image" value="<?php echo $ad->image; ?>"><br>
-    <input type="submit" value="Update">
-</form>
-<button>Uredi</button></a>
-		
-	</div>
 	<hr/>
 	<?php }
 ?>
